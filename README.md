@@ -1,6 +1,8 @@
 # PyCellVertex
 
-PyCellVertex is a 2D vertex model simulation package written in Python. It provides a robust, physically grounded framework for simulating multicellular dynamics, tissue morphogenesis, and cellular rearrangements.
+PyCellVertex is a 2D vertex model simulation package written in Python. It provides a robust, physically grounded framework for simulating multicellular dynamics, tissue morphogenesis, and cellular rearrangements. 
+
+This project is a faithful, modernized Python port of the original C++ codebase [`celldynamics`](https://github.com/yasuhiroinoue/celldynamics). It achieves mathematical and topological parity with the original C++ implementation while offering the flexibility, readability, and rich ecosystem integration of Python.
 
 ## Features
 

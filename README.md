@@ -28,7 +28,7 @@ cd PyCellVertex
 
 ### Basic Run (All mechanics enabled)
 ```bash
-uv run python main.py --out-dir output/basic_run --steps 100000 --dump-vtk
+uv run python main.py --out-dir output/basic_run --steps 100000 --dump-vtk --vtk-mode alive
 ```
 
 ### Example: PCP Oscillation Only (No Division)
@@ -39,7 +39,7 @@ uv run python main.py \
   --steps 5000000 \
   --k1-pcp 0.2 --power-pcp 2.0 --pulse-t 55.0 \
   --no-enable-division \
-  --dump-vtk --vtk-mode both --vtk-step 10000
+  --dump-vtk --vtk-mode alive --vtk-step 10000
 ```
 
 ### Example: Cell Proliferation Only (No PCP)
@@ -50,7 +50,7 @@ uv run python main.py \
   --steps 5000000 \
   --k1-pcp 0.0 \
   --enable-division --division-time 1000.0 --division-stagger-frac 0.25 \
-  --dump-vtk --vtk-mode both --vtk-step 10000
+  --dump-vtk --vtk-mode alive --vtk-step 10000
 ```
 
 ### Key Parameters
@@ -66,5 +66,15 @@ uv run python main.py \
 
 ## Visualization
 
-Simulation outputs are generated in the `artifacts/` directory by default. 
-Load the resulting `.vtk` files into [ParaView](https://www.paraview.org/) to visualize cell boundaries and phase dynamics.
+Simulation outputs are generated in the `artifacts/` directory by default (or the path specified by `--out-dir`).
+
+### VTK Output Modes (`--vtk-mode`)
+The simulation provides dual-mode VTK outputs to separate physical visualization from internal topological debugging:
+- `--vtk-mode alive` (Recommended): Outputs only active, topologically valid structures. Use this mode for all standard visualizations and analysis.
+- `--vtk-mode both`: Outputs both `alive` and `raw` data into separate subdirectories (`vtk_alive/` and `vtk_raw/`).
+- `--vtk-mode raw`: Includes logically deleted "dead" vertices and edges. Strictly for internal topology debugging.
+
+### Loading in ParaView
+Load the resulting `.vtk` files from the **`vtk_alive/`** directory into [ParaView](https://www.paraview.org/):
+- **`2dv_line*.vtk`**: Contains cell edge (boundary) information.
+- **`2dv_face*.vtk`**: Contains cell polygon (face) information and cell phase dynamics.

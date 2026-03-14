@@ -55,7 +55,7 @@ uv run python main.py \
 
 ### Key Parameters
 - `--out-dir`: Directory where simulation logs and VTK artifacts are saved (default: `output/`).
-- `--steps`: Total number of simulation steps.
+- `--steps`: Total number of simulation steps. The default time step (`DELTA_TIME`) is `1e-4` in simulation time. Thus, `100000` steps corresponds to `10.0` units of simulation time.
 - `--num-x`, `--num-y`: Initial grid size of cells.
 - `--k-area`, `--area-eq`: Area elasticity constant and equilibrium area.
 - `--k1-pcp`, `--pulse-t`: Parameters governing PCP-driven mechanical oscillations.

@@ -49,7 +49,7 @@ uv run python main.py \
   --out-dir output/division_only \
   --steps 5000000 \
   --k1-pcp 0.0 \
-  --enable-division --division-time 1000.0 --division-stagger-frac 0.25 \
+  --enable-division --division-time 50.0 --division-stagger-frac 0.5 \
   --dump-vtk --vtk-mode alive --vtk-step 10000
 ```
 

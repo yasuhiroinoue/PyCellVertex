@@ -1,0 +1,12 @@
+[project]
+name = "pycellvertex"
+version = "0.1.0"
+description = "2D vertex model simulation package for cellular dynamics"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=2.0",
+]
+
+[tool.ruff]
+line-length = 100

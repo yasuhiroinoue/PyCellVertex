@@ -1,0 +1,15 @@
+__pycache__/
+.pytest_cache/
+.venv/
+*.pyc
+.DS_Store
+artifacts/*
+!artifacts/golden/
+artifacts/golden/*
+!artifacts/golden/manifest.json
+
+!artifacts/force_dump/
+artifacts/force_dump/*
+!artifacts/force_dump/baseline/
+artifacts/force_dump/baseline/*
+!artifacts/force_dump/baseline/manifest.json

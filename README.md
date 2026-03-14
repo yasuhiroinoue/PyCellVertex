@@ -54,15 +54,39 @@ uv run python main.py \
 ```
 
 ### Key Parameters
+
 - `--out-dir`: Directory where simulation logs and VTK artifacts are saved (default: `output/`).
 - `--steps`: Total number of simulation steps. The default time step (`DELTA_TIME`) is `1e-4` in simulation time. Thus, `100000` steps corresponds to `10.0` units of simulation time.
 - `--num-x`, `--num-y`: Initial grid size of cells.
-- `--k-area`, `--area-eq`: Area elasticity constant and equilibrium area.
-- `--k1-pcp`, `--pulse-t`: Parameters governing PCP-driven mechanical oscillations.
-- `--enable-rearrange`, `--enable-intersection`: Toggle topological modifications.
-- `--enable-division`: Enable cell proliferation.
-- `--division-time`: The baseline physical time required for a cell to divide. Since the simulation time step (`dt`) is `1e-4`, the base number of steps required for a single cell cycle is `division-time / dt` (e.g., `1000.0` translates to 10,000,000 steps).
-- `--division-stagger-frac`: A fraction `[0, 1]` that defines the maximum random offset for the cell cycle clock. The initial cell time is randomized uniformly in the range `[0, division-time * division-stagger-frac]`. This offset is also freshly re-assigned to both daughter cells every time a cell divides, ensuring division timings remain staggered (asynchronous) throughout the tissue.
+
+The simulation behavior is governed by several command-line arguments corresponding to the mathematical and topological properties of the vertex model.
+
+#### Base Mechanics
+| Argument | Description | Default |
+| :--- | :--- | :--- |
+| `--k-area` | Area elasticity constant ($K_a$). Governs resistance to area changes. | `1.0` |
+| `--area-eq` | Equilibrium cell area ($A_0$). | `2.60` |
+| `--k1-length` | Baseline active line tension ($K_1$). Often negative to promote adhesion. | `-6.0` |
+| `--k2-length` | Edge elasticity constant ($K_2$). Prevents edges from becoming infinitely long. | `1.0` |
+| `--length-eq` | Equilibrium edge length ($L_0$). | `0.0` |
+
+#### PCP Oscillation
+| Argument | Description | Default |
+| :--- | :--- | :--- |
+| `--k1-pcp` | Amplitude of Planar Cell Polarity (PCP) driven active line tension oscillation. | `0.0` |
+| `--power-pcp` | Exponent $n$ for the PCP orientation term, controlling the sharpness of anisotropy. | `2.0` |
+| `--pulse-t` | Period of the mechanical oscillation ($T$). | `55.0` |
+| `--phase-x`, `--phase-y` | Spatial phase shift components along the X and Y axes. | `0.7854`, `1.5708` |
+
+#### Topology & Division
+| Argument | Description | Default |
+| :--- | :--- | :--- |
+| `--step-reconnect` | Interval (in steps) for checking and executing topological changes (T1/T2). | `100000` |
+| `--enable-division` | Flag to enable autonomous cell proliferation. | `True` |
+| `--division-time` | Base physical time required for a cell cycle. (Note: $\Delta t = 10^{-4}$). | `1000.0` |
+| `--division-stagger-frac` | Fraction `[0, 1]` defining the maximum random phase offset assigned to daughter cells. | `0.25` |
+
+For deep customization (such as modifying hardcoded physical constants like $\Delta t$ or the core force equations), please see [ADVANCED.md](ADVANCED.md).
 
 ## Visualization
 

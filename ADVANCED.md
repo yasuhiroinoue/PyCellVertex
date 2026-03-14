@@ -30,7 +30,13 @@ If your research requires a specific initial state (e.g., a circular tissue patc
 - Modify `init_plain()` in `src/celldynamics/init_plain.py`.
 - Ensure that the initial topological structures (`Vertex`, `Line`, `Cellula`) follow the strict counter-clockwise indexing rules required by the simulation engine.
 
-## 4. Topological Surgeries (`rearrange.py` & `intersection.py`)
+## 4. Time Integration (`sim_step.py`)
+
+The simulation uses a second-order Runge-Kutta (midpoint) method for time integration, matching the original C++ ODE solver.
+
+If you want to implement a different numerical integration scheme (e.g., first-order Euler, or 4th-order Runge-Kutta), modify the `motion_vertex_second_step()` function in `src/celldynamics/sim_step.py`.
+
+## 5. Topological Surgeries (`rearrange.py` & `intersection.py`)
 
 The simulation maintains tissue integrity through complex topological surgeries.
 

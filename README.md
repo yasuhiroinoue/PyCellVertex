@@ -28,13 +28,14 @@ cd PyCellVertex
 
 ### Basic Run (All mechanics enabled)
 ```bash
-uv run python main.py --steps 100000 --dump-vtk
+uv run python main.py --out-dir output/basic_run --steps 100000 --dump-vtk
 ```
 
 ### Example: PCP Oscillation Only (No Division)
 To observe pure tissue deformation and cell intercalations driven by Planar Cell Polarity (PCP) active forces, disable cell division:
 ```bash
 uv run python main.py \
+  --out-dir output/pcp_only \
   --steps 5000000 \
   --k1-pcp 0.2 --power-pcp 2.0 --pulse-t 55.0 \
   --no-enable-division \
@@ -45,6 +46,7 @@ uv run python main.py \
 To observe tissue growth through cell division without anisotropic active forces:
 ```bash
 uv run python main.py \
+  --out-dir output/division_only \
   --steps 5000000 \
   --k1-pcp 0.0 \
   --enable-division --division-time 1000.0 --division-stagger-frac 0.25 \
@@ -52,6 +54,7 @@ uv run python main.py \
 ```
 
 ### Key Parameters
+- `--out-dir`: Directory where simulation logs and VTK artifacts are saved (default: `output/`).
 - `--steps`: Total number of simulation steps.
 - `--num-x`, `--num-y`: Initial grid size of cells.
 - `--k-area`, `--area-eq`: Area elasticity constant and equilibrium area.

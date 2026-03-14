@@ -20,7 +20,7 @@ def calc_area_force(state: GlobalState, deg: int) -> None:
             state.p_v[global_vidx].frc[deg] += frc_tmp
 
 
-def calc_line_force(state: GlobalState, deg: int, power_pcp: float) -> None:
+def calc_line_force(state: GlobalState, deg: int, power_pcp: float, delta_time: float = 1e-4) -> None:
     """Python port of C++ `force::calcLineForce` (single-threaded baseline)."""
     for cp in state.p_c:
         i_length = 0.0
@@ -63,7 +63,11 @@ def calc_line_force(state: GlobalState, deg: int, power_pcp: float) -> None:
             pcp_vec = Vec3(1.0, 0.0, 0.0)
             pcp_vec /= pcp_vec.norm()
             div = l_grad * pcp_vec
-            sint_t = math.sin(2.0 * math.pi * cp.cell_time / cp.cell_T - cp.cell_phase)
+            
+            t_offset = (delta_time * 0.5) if deg == 1 else 0.0
+            t_eval = cp.cell_time + t_offset
+            sint_t = math.sin(2.0 * math.pi * t_eval / cp.cell_T - cp.cell_phase)
+            
             line_tension_pcp = (div**power_pcp) * lp.K1_PCP_LENGTH * (sint_t + 1.0)
 
             frc_tmp += l_grad * line_tension_pcp

@@ -10,10 +10,10 @@ def update_pulse(state: GlobalState, delta_time: float = DELTA_TIME) -> None:
         cp.cell_time += delta_time
 
 
-def compute_midpoint_stage1_forces(state: GlobalState, power_pcp: float = 2.0) -> None:
+def compute_midpoint_stage1_forces(state: GlobalState, power_pcp: float = 2.0, delta_time: float = DELTA_TIME) -> None:
     reset_forces(state, deg=0)
     reset_line_tension(state)
-    calc_line_force(state, deg=0, power_pcp=power_pcp)
+    calc_line_force(state, deg=0, power_pcp=power_pcp, delta_time=delta_time)
     calc_area_force(state, deg=0)
 
 
@@ -26,7 +26,7 @@ def motion_vertex_second_step(
     # stage1 forces on loc[0]
     reset_forces(state, deg=0)
     reset_line_tension(state)
-    calc_line_force(state, deg=0, power_pcp=power_pcp)
+    calc_line_force(state, deg=0, power_pcp=power_pcp, delta_time=delta_time)
     calc_area_force(state, deg=0)
 
     for vp in state.p_v:
@@ -35,7 +35,7 @@ def motion_vertex_second_step(
 
     # stage2 forces on loc[1]
     reset_forces(state, deg=1)
-    calc_line_force(state, deg=1, power_pcp=power_pcp)
+    calc_line_force(state, deg=1, power_pcp=power_pcp, delta_time=delta_time)
     calc_area_force(state, deg=1)
 
     for vp in state.p_v:

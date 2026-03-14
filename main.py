@@ -183,7 +183,7 @@ def main() -> None:
             dump_vtk_snapshot(
                 state, step=step, out_dir=args.out_dir, step_scale=args.vtk_step_scale, alive_only=args.vtk_alive_only, vtk_mode=args.vtk_mode
             )
-            logging.info(f"Wrote VTK at step {step} (simulation time {step * DELTA_TIME:.2f})")
+            logging.info(f"Wrote VTK at step {step} (time {step * DELTA_TIME:.2f})")
 
     # Output event log if needed
     if event_log:

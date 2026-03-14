@@ -102,3 +102,7 @@ The simulation provides dual-mode VTK outputs to separate physical visualization
 Load the resulting `.vtk` files from the **`vtk_alive/`** directory into [ParaView](https://www.paraview.org/):
 - **`2dv_line*.vtk`**: Contains cell edge (boundary) information.
 - **`2dv_face*.vtk`**: Contains cell polygon (face) information and cell phase dynamics.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

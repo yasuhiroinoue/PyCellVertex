@@ -24,7 +24,31 @@ Clone the repository and run the simulation using `uv`:
 ```bash
 git clone https://github.com/yasuhiroinoue/PyCellVertex.git
 cd PyCellVertex
+```
+
+### Basic Run (All mechanics enabled)
+```bash
 uv run python main.py --steps 100000 --dump-vtk
+```
+
+### Example: PCP Oscillation Only (No Division)
+To observe pure tissue deformation and cell intercalations driven by Planar Cell Polarity (PCP) active forces, disable cell division:
+```bash
+uv run python main.py \
+  --steps 5000000 \
+  --k1-pcp 0.2 --power-pcp 2.0 --pulse-t 55.0 \
+  --no-enable-division \
+  --dump-vtk --vtk-mode both --vtk-step 10000
+```
+
+### Example: Cell Proliferation Only (No PCP)
+To observe tissue growth through cell division without anisotropic active forces:
+```bash
+uv run python main.py \
+  --steps 5000000 \
+  --k1-pcp 0.0 \
+  --enable-division --division-time 1000.0 --division-stagger-frac 0.25 \
+  --dump-vtk --vtk-mode both --vtk-step 10000
 ```
 
 ### Key Parameters

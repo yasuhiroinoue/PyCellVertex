@@ -5,7 +5,8 @@ PyCellVertex is a 2D vertex model simulation package written in Python. It provi
 ## Features
 
 - **2D Vertex Model**: Simulates epithelial tissue dynamics using a mechanically consistent vertex model.
-- **Topological Surgery**: Accurately handles cell division, cell intercalation (T1 transitions), and complex boundary intersections (T2/T3-like transitions) while strictly preserving graph topology.
+- **Cell Division**: Simulates autonomous cell proliferation with staggered timing and proper topological inheritance.
+- **Topological Surgery**: Accurately handles cell intercalation (T1 transitions) and complex boundary intersections (T2/T3-like transitions) while strictly preserving graph topology.
 - **PCP (Planar Cell Polarity) Oscillation**: Supports anisotropic line tensions and active oscillatory mechanics.
 - **VTK Visualization**: Outputs simulation states in VTK format for direct visualization and analysis in tools like ParaView.
 
@@ -30,6 +31,8 @@ uv run python main.py --steps 100000 --dump-vtk
 - `--k-area`, `--area-eq`: Area elasticity constant and equilibrium area.
 - `--k1-pcp`, `--pulse-t`: Parameters governing PCP-driven mechanical oscillations.
 - `--enable-rearrange`, `--enable-intersection`: Toggle topological modifications.
+- `--enable-division`: Enable cell proliferation.
+- `--division-time`, `--division-stagger-frac`: Control the baseline time required for a cell to divide and the randomness (stagger) applied to daughter cells.
 
 ## Visualization
 

@@ -61,7 +61,8 @@ uv run python main.py \
 - `--k1-pcp`, `--pulse-t`: Parameters governing PCP-driven mechanical oscillations.
 - `--enable-rearrange`, `--enable-intersection`: Toggle topological modifications.
 - `--enable-division`: Enable cell proliferation.
-- `--division-time`, `--division-stagger-frac`: Control the baseline time required for a cell to divide and the randomness (stagger) applied to daughter cells.
+- `--division-time`: The baseline physical time required for a cell to divide.
+- `--division-stagger-frac`: A fraction `[0, 1]` that defines the maximum random offset for the cell cycle clock. The initial cell time is randomized uniformly in the range `[0, division-time * division-stagger-frac]`. This offset is also freshly re-assigned to both daughter cells every time a cell divides, ensuring division timings remain staggered (asynchronous) throughout the tissue.
 
 ## Visualization
 

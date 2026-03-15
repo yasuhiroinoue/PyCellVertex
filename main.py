@@ -8,10 +8,25 @@ import random
 import sys
 from pathlib import Path
 
-# Setup import path for local src directory
-ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(ROOT / "src"))
 
+
+logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
+
+# Determine engine early to set sys.path
+import sys
+ROOT = Path(__file__).resolve().parent
+_pre_p = argparse.ArgumentParser(add_help=False)
+_pre_p.add_argument("--engine", type=str, choices=["basic", "numpy"], default="basic")
+_engine_args, _ = _pre_p.parse_known_args()
+
+if _engine_args.engine == "numpy":
+    sys.path.insert(0, str(ROOT / "src_fast"))
+    logging.info("Using NumPy-vectorized high-performance engine (src_fast)")
+else:
+    sys.path.insert(0, str(ROOT / "src_basic"))
+    logging.info("Using Basic Object-Oriented educational engine (src_basic)")
+
+# Now import the selected engine
 from celldynamics.constants import L_THRESHOLD, STEP_RECONNECT_DEFAULT
 from celldynamics.division import cell_division, is_convex, update_centers
 from celldynamics.init_plain import InitParams, init_plain
@@ -21,12 +36,10 @@ from celldynamics.sim_step import DELTA_TIME, motion_vertex_second_step, update_
 from celldynamics.vec import Vec3
 from celldynamics.vtk_output import dump_vtk_snapshot
 
-logging.basicConfig(level=logging.INFO, format="[%(levelname)s] %(message)s")
-
 
 def main() -> None:
     p = argparse.ArgumentParser(
-        description="Celldynamics-Python Main Simulation Entrypoint",
+        description="PyCellVertex Main Simulation Entrypoint",
         fromfile_prefix_chars="@",
     )
     p.add_argument(
@@ -94,6 +107,7 @@ def main() -> None:
         "--vtk-mode", type=str, choices=["raw", "alive", "both"], default="raw", help="VTK output mode"
     )
 
+    p.add_argument("--engine", type=str, choices=["basic", "numpy"], default="basic", help="Simulation engine: basic (educational) or numpy (fast)")
     p.add_argument("--config", type=Path, help="Optional JSON config file with parameters")
 
     # Parse config first if present

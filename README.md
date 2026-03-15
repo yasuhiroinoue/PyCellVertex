@@ -4,6 +4,29 @@ PyCellVertex is a 2D vertex model simulation package written in Python. It provi
 
 This project is a faithful, modernized Python port of the original C++ codebase [`celldynamics`](https://github.com/yasuhiroinoue/celldynamics). It achieves mathematical and topological parity with the original C++ implementation while offering the flexibility, readability, and rich ecosystem integration of Python.
 
+## 🚀 Dual-Engine Architecture (Educational vs Practical)
+
+PyCellVertex embraces two distinct audiences: researchers who want to **understand the math/algorithms** and those who want to **run large-scale simulations fast**. To support both, the codebase features a Dual-Engine Architecture:
+
+* **`--engine basic` (Source: `src_basic/`) - Default**
+  * **Purpose**: Education, algorithmic understanding, and debugging.
+  * **Characteristics**: Pure Object-Oriented Python. Mathematical formulas from the vertex model literature are translated directly into readable, clean code. Highly recommended for students and first-time contributors.
+
+* **`--engine numpy` (Source: `src_fast/`)**
+  * **Purpose**: High-performance practical simulations.
+  * **Characteristics**: Replaces the force calculations and center updates with C-level SIMD operations via NumPy (Flattened Arrays, `np.add.at`, slicing). Vectorization yields a **~6x speedup** on long simulations while retaining the exact same graph topology surgeries.
+
+You can switch engines transparently without altering your configuration:
+```bash
+# Run educational engine
+uv run python main.py --steps 5000 --engine basic
+
+# Run high-performance vectorized engine
+uv run python main.py --steps 5000 --engine numpy
+```
+
+---
+
 ## Features
 
 - **2D Vertex Model**: Simulates epithelial tissue dynamics using a mechanically consistent vertex model.
